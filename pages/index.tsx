@@ -8,7 +8,7 @@ import { getSortedPostsData } from '../lib/posts';
 import useSWR, { Fetcher } from 'swr';
 
 export const getStaticProps: GetStaticProps = async () => {
-  const allPostsData = getSortedPostsData()
+  const allPostsData = getSortedPostsData();
   return {
     props: {
       allPostsData
@@ -16,12 +16,12 @@ export const getStaticProps: GetStaticProps = async () => {
   };
 };
 
-const fetcher: Fetcher<{text: string}, RequestInfo> = (...args: Parameters<typeof fetch>) => fetch(...args).then(res => res.json());
+const fetcher: Fetcher<{count: number}, RequestInfo> = (...args: Parameters<typeof fetch>) => fetch(...args).then(res => res.json());
 
 export default function Home({ allPostsData }) {
-  const { data, error } = useSWR('/api/get-word', fetcher);
+  const { data, error } = useSWR('/api/get-count', fetcher);
 
-  let word = error ? '...failed to load...' : (!data ? '...loading...' : data.text);
+  let count = error ? '...failed to load...' : (!data ? '...loading...' : data.count);
   return (
     <Layout home>
       <Head>
@@ -33,7 +33,7 @@ export default function Home({ allPostsData }) {
           Here are some topics I've learned about (written by the Next.js team).
         </p>
         <p>
-          I've also added a step to get this <em>{word}</em> from an API, and have converted the result of the basic tutorial into TypeScript.
+          I've also added a step to get this number: <em>{count}</em> from a free API, and have converted the result of the basic tutorial into TypeScript.
         </p>
       </section>
       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
