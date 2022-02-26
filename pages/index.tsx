@@ -20,8 +20,8 @@ const fetcher: Fetcher<{count: number}, RequestInfo> = (...args: Parameters<type
 
 export default function Home({ allPostsData }) {
   const { data, error } = useSWR('/api/get-count', fetcher);
-
   let count = error ? '...failed to load...' : (!data ? '...loading...' : data.count);
+
   return (
     <Layout home>
       <Head>
@@ -29,11 +29,11 @@ export default function Home({ allPostsData }) {
       </Head>
       <section className={utilStyles.headingMd}>
         <p>Hi, I'm Jillian and I'm learning Next.js using their <a href="https://nextjs.org/learn">tutorial</a>.</p>
-        <p>
-          Here are some topics I've learned about (written by the Next.js team).
-        </p>
-        <p>
+        <small className={utilStyles.lightText}>
           I've also added a step to get this number: <em>{count}</em> from a free API, and have converted the result of the basic tutorial into TypeScript.
+        </small>
+        <p>
+          Here are some topics I've learned about (sample blog posts written by the Next.js team).
         </p>
       </section>
       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>

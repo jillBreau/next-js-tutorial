@@ -12,4 +12,4 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     console.error(error);
     return res.status(error.status || 500).end(error.message);
   }
-}
+};
