@@ -5,22 +5,23 @@ import Layout, { siteTitle } from '../components/layout';
 import Date from '../components/date';
 import utilStyles from '../styles/utils.module.css';
 import { getSortedPostsData } from '../lib/posts';
-import useSWR, { Fetcher } from 'swr';
 
-export const getStaticProps: GetStaticProps = async () => {
-  const allPostsData = getSortedPostsData();
+export const getStaticProps: GetStaticProps<{allPostsData: Array<{id: string, date: string, title: string}>}> = async () => {
+  const allPostsData: Array<{id: string, date: string, title: string}> = getSortedPostsData();
+
+  const response = await fetch('https://api.publicapis.org/entries');
+  const data = await response.json();
+  const count = data.count;
+
   return {
     props: {
-      allPostsData
+      allPostsData,
+      count
     }
   };
 };
 
-const fetcher: Fetcher<{count: number}, RequestInfo> = (...args: Parameters<typeof fetch>) => fetch(...args).then(res => res.json());
-
-export default function Home({ allPostsData }) {
-  const { data, error } = useSWR('/api/get-count', fetcher);
-  let count = error ? '...failed to load...' : (!data ? '...loading...' : data.count);
+export default function Home({ allPostsData, count }: { allPostsData: Array<{id: string, date: string, title: string}>, count: number }) {
 
   return (
     <Layout home>

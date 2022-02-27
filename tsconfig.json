@@ -22,7 +22,7 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx", "pages/api/get-count.ts"
+    "**/*.tsx", "pages/api/test-route.ts"
   ],
   "exclude": [
     "node_modules"
