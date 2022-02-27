@@ -34,7 +34,7 @@ export default function Home({ allPostsData, count }: { allPostsData: Array<{id:
           I've also added a step to get this number: <em>{count}</em> from a free API, and have converted the result of the basic tutorial into TypeScript.
         </small>
         <p>
-          Here are some topics I've learned about (sample blog posts written by the Next.js team).
+          Here are some topics I've learned about in the tutorial.
         </p>
       </section>
       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
