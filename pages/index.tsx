@@ -6,7 +6,7 @@ import Date from '../components/date';
 import utilStyles from '../styles/utils.module.css';
 import { getSortedPostsData } from '../lib/posts';
 
-export const getStaticProps: GetStaticProps<{allPostsData: Array<{id: string, date: string, title: string}>}> = async () => {
+export const getStaticProps: GetStaticProps<{ allPostsData: Array<{id: string, date: string, title: string}>, count: number }> = async () => {
   const allPostsData: Array<{id: string, date: string, title: string}> = getSortedPostsData();
 
   const response = await fetch('https://api.publicapis.org/entries');
@@ -22,7 +22,7 @@ export const getStaticProps: GetStaticProps<{allPostsData: Array<{id: string, da
 };
 
 export default function Home({ allPostsData, count }: { allPostsData: Array<{id: string, date: string, title: string}>, count: number }) {
-
+  let allPostsDataArray = allPostsData || [{id: 'pre-rendering', date: '2020-02-22', title: 'Two Forms of Pre-rendering'}]; // remove
   return (
     <Layout home>
       <Head>
@@ -40,7 +40,7 @@ export default function Home({ allPostsData, count }: { allPostsData: Array<{id:
       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
         <h2 className={utilStyles.headingLg}>Topics</h2>
         <ul className={utilStyles.list}>
-          {allPostsData.map(({ id, date, title }) => (
+          {allPostsDataArray.map(({ id, date, title }) => (
             <li className={utilStyles.listItem} key={id}>
               <Link href={`/posts/${id}`}>
                 <a>{title}</a>
